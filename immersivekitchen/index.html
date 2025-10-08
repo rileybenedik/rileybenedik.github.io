@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <style>
+    body { margin: 0; overflow: hidden; font-family: Arial, sans-serif; }
+    
+    #info {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(0,0,0,0.9);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 350px;
+      z-index: 1000;
+    }
+    
+    #info h2 { 
+      margin: 0 0 10px 0; 
+      font-size: 18px; 
+      color: #4CAF50; 
+    }
+    
+    #info p { 
+      margin: 5px 0; 
+      font-size: 14px; 
+      line-height: 1.6; 
+    }
+    
+    #button-container {
+      position: fixed;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      z-index: 1000;
+    }
+    
+    .food-button {
+      display: block;
+      background: #4CAF50;
+      color: white;
+      border: 2px solid white;
+      padding: 12px 20px;
+      margin: 8px 0;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      min-width: 150px;
+      text-align: left;
+    }
+    
+    .food-button:hover {
+      background: #45a049;
+      transform: scale(1.05);
+    }
+    
+    #controls {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(0,0,0,0.9);
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 12px;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <div id="info">
+    <h2>Welcome to the Kitchen!</h2>
+    <p>Click the green buttons on the right to learn about each food and how to cook it.</p>
+  </div>
+  
+  <div id="button-container">
+    <button class="food-button" onclick="showInfo('chicken')">Chicken</button>
+    <button class="food-button" onclick="showInfo('fish')">Fish</button>
+    <button class="food-button" onclick="showInfo('rice')">Rice</button>
+    <button class="food-button" onclick="showInfo('bread')">Bread</button>
+    <button class="food-button" onclick="showInfo('carrots')">Carrots</button>
+    <button class="food-button" onclick="showInfo('broccoli')">Broccoli</button>
+    <button class="food-button" onclick="showInfo('apple')">Apple</button>
+  </div>
+  
+  <div id="controls">
+    <strong>Controls:</strong> Drag to look around | WASD to move
+  </div>
+
+  <a-scene>
+    <a-sky color="#E8F5E9"></a-sky>
+    <a-entity light="type: ambient; color: #FFF; intensity: 0.7"></a-entity>
+    <a-entity light="type: directional; color: #FFF; intensity: 0.5" position="2 4 2"></a-entity>
+    
+    <!-- Floor -->
+    <a-plane position="0 0 0" rotation="-90 0 0" width="12" height="12" color="#D7CCC8"></a-plane>
+    
+    <!-- Back Wall -->
+    <a-plane position="0 2 -5" rotation="0 0 0" width="12" height="4" color="#BCAAA4"></a-plane>
+    
+    <!-- Left Wall -->
+    <a-plane position="-6 2 0" rotation="0 90 0" width="12" height="4" color="#BCAAA4"></a-plane>
+    
+    <!-- Right Wall -->
+    <a-plane position="6 2 0" rotation="0 -90 0" width="12" height="4" color="#BCAAA4"></a-plane>
+    
+    <!-- Back Counter -->
+    <a-box position="0 0.5 -3.5" width="8" height="1" depth="2" color="#8D6E63"></a-box>
+    
+    <!-- Left Side Counter -->
+    <a-box position="-5 0.5 0" width="1.5" height="1" depth="8" color="#8D6E63"></a-box>
+    
+    <!-- Right Side Counter -->
+    <a-box position="5 0.5 0" width="1.5" height="1" depth="8" color="#8D6E63"></a-box>
+    
+    <!-- STOVE (left side) -->
+    <a-box position="-5 1.3 2.5" width="1" height="0.15" depth="1" color="#2C2C2C"></a-box>
+    <a-circle position="-5.3 1.38 2.7" radius="0.18" color="#444" rotation="-90 0 0"></a-circle>
+    <a-circle position="-4.7 1.38 2.7" radius="0.18" color="#444" rotation="-90 0 0"></a-circle>
+    <a-circle position="-5.3 1.38 2.3" radius="0.18" color="#444" rotation="-90 0 0"></a-circle>
+    <a-circle position="-4.7 1.38 2.3" radius="0.18" color="#444" rotation="-90 0 0"></a-circle>
+    <a-text value="STOVE" position="-5 1.6 2.5" color="#FFF" width="3" align="center"></a-text>
+    
+    <!-- OVEN (left side, under counter) -->
+    <a-box position="-5 0.5 2.5" width="1" height="0.8" depth="1" color="#3C3C3C"></a-box>
+    <a-box position="-4.99 0.5 2.5" width="0.7" height="0.5" depth="0.01" color="#1C1C1C"></a-box>
+    <a-cylinder position="-4.6 0.3 2.5" radius="0.04" height="0.1" color="#888" rotation="0 0 90"></a-cylinder>
+    
+    <!-- MICROWAVE (left side) -->
+    <a-box position="-5 1.6 0" width="1" height="0.5" depth="0.6" color="#E0E0E0"></a-box>
+    <a-box position="-4.99 1.6 0" width="0.6" height="0.3" depth="0.01" color="#1C1C1C"></a-box>
+    <a-text value="MICROWAVE" position="-5 1.95 0" color="#000" width="3" align="center"></a-text>
+    
+    <!-- SINK (right side) -->
+    <a-box position="5 1.1 2.5" width="0.8" height="0.2" depth="0.7" color="#B8B8B8"></a-box>
+    <a-cylinder position="5 1.4 2.2" radius="0.05" height="0.35" color="#C0C0C0"></a-cylinder>
+    <a-sphere position="5 1.58 2.2" radius="0.09" color="#C0C0C0"></a-sphere>
+    <a-text value="SINK" position="5 1.7 2.5" color="#000" width="3" align="center"></a-text>
+    
+    <!-- REFRIGERATOR (right side) -->
+    <a-box position="5 1.5 -2.5" width="1.2" height="2.2" depth="1" color="#F0F0F0"></a-box>
+    <a-box position="4.99 2 -2.5" width="1" height="0.9" depth="0.01" color="#E0E0E0"></a-box>
+    <a-box position="4.99 1 -2.5" width="1" height="0.9" depth="0.01" color="#E0E0E0"></a-box>
+    <a-cylinder position="4.7 2 -2.1" radius="0.05" height="0.1" color="#777" rotation="0 0 90"></a-cylinder>
+    <a-cylinder position="4.7 1 -2.1" radius="0.05" height="0.1" color="#777" rotation="0 0 90"></a-cylinder>
+    <a-text value="FRIDGE" position="5 2.8 -2.5" color="#000" width="3" align="center"></a-text>
+    
+    <!-- PROTEINS Section (Back counter - Left) -->
+    <a-text value="PROTEINS" position="-2.5 2.5 -4.9" color="#D32F2F" width="5" align="center"></a-text>
+    <a-sphere position="-3 1.2 -3.5" radius="0.3" color="#FFE0B2"></a-sphere>
+    <a-text value="Chicken" position="-3 0.7 -3.3" color="#000" width="2.5" align="center"></a-text>
+    <a-cone position="-2 1.2 -3.5" radius-bottom="0.3" radius-top="0.1" height="0.4" color="#90CAF9" rotation="0 0 0"></a-cone>
+    <a-text value="Fish" position="-2 0.7 -3.3" color="#000" width="2.5" align="center"></a-text>
+    
+    <!-- GRAINS Section (Back counter - Center) -->
+    <a-text value="GRAINS" position="0 2.5 -4.9" color="#F57C00" width="5" align="center"></a-text>
+    <a-box position="-0.5 1.2 -3.5" width="0.4" height="0.3" depth="0.4" color="#FFF9C4"></a-box>
+    <a-text value="Rice" position="-0.5 0.7 -3.3" color="#000" width="2.5" align="center"></a-text>
+    <a-box position="0.5 1.2 -3.5" width="0.5" height="0.2" depth="0.4" color="#D4A574"></a-box>
+    <a-text value="Bread" position="0.5 0.7 -3.3" color="#000" width="2.5" align="center"></a-text>
+    
+    <!-- VEGETABLES Section (Back counter - Right) -->
+    <a-text value="VEGETABLES" position="2 2.5 -4.9" color="#388E3C" width="5" align="center"></a-text>
+    <a-cone position="1.5 1.2 -3.5" radius-bottom="0.15" radius-top="0.05" height="0.6" color="#FF6F00" rotation="0 0 180"></a-cone>
+    <a-text value="Carrots" position="1.5 0.7 -3.3" color="#000" width="2.5" align="center"></a-text>
+    <a-sphere position="2.5 1.2 -3.5" radius="0.25" color="#43A047"></a-sphere>
+    <a-text value="Broccoli" position="2.5 0.7 -3.3" color="#000" width="2.5" align="center"></a-text>
+    
+    <!-- FRUITS Section (Right counter) -->
+    <a-text value="FRUITS" position="4.9 2.5 0" color="#C62828" width="4" align="center" rotation="0 -90 0"></a-text>
+    <a-sphere position="5 1.2 0" radius="0.25" color="#EF5350"></a-sphere>
+    <a-text value="Apple" position="5 0.7 0.2" color="#000" width="2.5" align="center" rotation="0 -90 0"></a-text>
+    
+    <!-- Camera -->
+    <a-entity camera look-controls wasd-controls="enabled: true" position="0 1.6 1"></a-entity>
+  </a-scene>
+
+  <script>
+    function showInfo(food) {
+      const infoBox = document.getElementById('info');
+      
+      const foodData = {
+        chicken: {
+          title: 'Chicken (Protein)',
+          text: 'Cook until internal temp reaches 165°F. Bake at 375°F for 25-30 minutes or pan-fry 6-8 minutes per side. Season with salt, pepper, garlic and herbs. Let rest 5 minutes after cooking.'
+        },
+        fish: {
+          title: 'Fish (Protein)',
+          text: 'Cook until it flakes easily with a fork, about 145°F. Bake at 400°F for 10-15 minutes. Pan-sear 3-4 minutes per side. Season with lemon, garlic and dill. Fish cooks quickly so watch carefully!'
+        },
+        rice: {
+          title: 'Rice (Grain)',
+          text: 'Use 2 cups water for every 1 cup rice. Bring to boil, then simmer covered for 18-20 minutes. Let rest 5 minutes then fluff with fork. Rinse rice before cooking to remove excess starch.'
+        },
+        bread: {
+          title: 'Bread (Grain)',
+          text: 'Great for toast, sandwiches and French toast. Toast on medium heat for 2-3 minutes until golden. Make croutons by cubing bread, tossing with oil and herbs, then baking at 375°F for 10 minutes.'
+        },
+        carrots: {
+          title: 'Carrots (Vegetable)',
+          text: 'Peel and chop into even pieces. Roast at 425°F for 20-25 minutes with olive oil, or boil 10-15 minutes until tender. Add to soups and stir-fries or eat raw with dip!'
+        },
+        broccoli: {
+          title: 'Broccoli (Vegetable)',
+          text: 'Steam for 5-7 minutes until bright green and tender-crisp. Roast at 425°F for 15-20 minutes for crispy edges. Do not overcook or it gets mushy! Should be vibrant green.'
+        },
+        apple: {
+          title: 'Apple (Fruit)',
+          text: 'Great raw snack with peanut butter or cheese. For baked apples: core, fill with cinnamon and sugar, bake at 350°F for 30-40 minutes. Add to salads, oatmeal or make applesauce!'
+        }
+      };
+      
+      const data = foodData[food];
+      infoBox.style.background = 'rgba(255, 255, 255, 0.95)';
+      infoBox.style.color = 'black';
+      infoBox.innerHTML = '<h2 style="color: #2E7D32;">' + data.title + '</h2><p>' + data.text + '</p>';
+    }
+  </script>
+</body>
+</html>
