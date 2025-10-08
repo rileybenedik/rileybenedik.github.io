@@ -90,22 +90,43 @@
     <strong>Controls:</strong> Drag to look around | WASD to move
   </div>
 
-  <a-scene>
+  <a-scene vr-mode-ui="enabled: true">
     <a-sky color="#E8F5E9"></a-sky>
     <a-entity light="type: ambient; color: #FFF; intensity: 0.7"></a-entity>
     <a-entity light="type: directional; color: #FFF; intensity: 0.5" position="2 4 2"></a-entity>
     
     <!-- Floor -->
-    <a-plane position="0 0 0" rotation="-90 0 0" width="12" height="12" color="#D7CCC8"></a-plane>
+    <a-plane position="0 0 0" rotation="-90 0 0" width="14" height="14" color="#D7CCC8"></a-plane>
     
     <!-- Back Wall -->
-    <a-plane position="0 2 -5" rotation="0 0 0" width="12" height="4" color="#BCAAA4"></a-plane>
+    <a-plane position="0 2 -7" rotation="0 0 0" width="14" height="4" color="#BCAAA4"></a-plane>
+    
+    <!-- Windows on Back Wall -->
+    <a-box position="-3 2.5 -6.99" width="1.5" height="1.5" depth="0.1" color="#87CEEB" opacity="0.3" transparent="true"></a-box>
+    <a-box position="-3 2.5 -6.98" width="0.05" height="1.5" depth="0.05" color="#FFF" rotation="0 0 0"></a-box>
+    <a-box position="-3 2.5 -6.98" width="1.5" height="0.05" depth="0.05" color="#FFF" rotation="0 0 0"></a-box>
+    
+    <a-box position="3 2.5 -6.99" width="1.5" height="1.5" depth="0.1" color="#87CEEB" opacity="0.3" transparent="true"></a-box>
+    <a-box position="3 2.5 -6.98" width="0.05" height="1.5" depth="0.05" color="#FFF" rotation="0 0 0"></a-box>
+    <a-box position="3 2.5 -6.98" width="1.5" height="0.05" depth="0.05" color="#FFF" rotation="0 0 0"></a-box>
     
     <!-- Left Wall -->
-    <a-plane position="-6 2 0" rotation="0 90 0" width="12" height="4" color="#BCAAA4"></a-plane>
+    <a-plane position="-7 2 0" rotation="0 90 0" width="14" height="4" color="#BCAAA4"></a-plane>
     
     <!-- Right Wall -->
-    <a-plane position="6 2 0" rotation="0 -90 0" width="12" height="4" color="#BCAAA4"></a-plane>
+    <a-plane position="7 2 0" rotation="0 -90 0" width="14" height="4" color="#BCAAA4"></a-plane>
+    
+    <!-- Front Wall with Door -->
+    <a-box position="-3 2 7" width="4" height="4" depth="0.2" color="#BCAAA4"></a-box>
+    <a-box position="3 2 7" width="4" height="4" depth="0.2" color="#BCAAA4"></a-box>
+    <a-box position="0 3.5 7" width="6" height="1" depth="0.2" color="#BCAAA4"></a-box>
+    
+    <!-- Door -->
+    <a-box position="0 1.5 7" width="2" height="3" depth="0.15" color="#6D4C41"></a-box>
+    <a-sphere position="0.7 1.5 7.08" radius="0.08" color="#FFD700"></a-sphere>
+    
+    <!-- Ceiling -->
+    <a-plane position="0 4 0" rotation="90 0 0" width="14" height="14" color="#FAFAFA"></a-plane>
     
     <!-- Back Counter -->
     <a-box position="0 0.5 -3.5" width="8" height="1" depth="2" color="#8D6E63"></a-box>
@@ -174,8 +195,10 @@
     <a-sphere position="5 1.2 0" radius="0.25" color="#EF5350"></a-sphere>
     <a-text value="Apple" position="5 0.7 0.2" color="#000" width="2.5" align="center" rotation="0 -90 0"></a-text>
     
-    <!-- Camera -->
-    <a-entity camera look-controls wasd-controls="enabled: true" position="0 1.6 1"></a-entity>
+    <!-- Camera with VR controls -->
+    <a-entity camera look-controls wasd-controls="enabled: true" position="0 1.6 1">
+      <a-cursor color="#4CAF50"></a-cursor>
+    </a-entity>
   </a-scene>
 
   <script>
